@@ -1,13 +1,359 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="pt">
 <head>
-  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
-  <title>Hello, World!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serviços de Informática Jorge</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+
+    body { background: #0f172a; color: #fff; }
+
+    header {
+      background: #020617;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    header h1 { color: #38bdf8; font-size: 1.5em; }
+
+    nav a {
+      color: #fff;
+      margin-left: 20px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: #38bdf8; }
+
+    .menu-btn {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    .menu-btn.aberto span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+    .menu-btn.aberto span:nth-child(2) { opacity: 0; }
+    .menu-btn.aberto span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+    @media (max-width: 600px) {
+      .menu-btn { display: flex; }
+
+      nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: #020617;
+        width: 100%;
+        padding: 20px;
+        z-index: 100;
+      }
+
+      nav.aberto { display: flex; }
+      nav a { margin: 10px 0; font-size: 1.1em; }
+    }
+
+    .hero {
+      padding: 60px 20px;
+      text-align: center;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                  url('https://images.unsplash.com/photo-1518770660439-4636190af475');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero h2 { font-size: 2.5em; margin-bottom: 20px; }
+    .hero p { color: #cbd5e1; margin: 8px 0; }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      margin-right: 10px;
+      padding: 12px 24px;
+      background: #38bdf8;
+      color: #000;
+      text-decoration: none;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.1s;
+    }
+
+    .btn:hover { background: #7dd3fc; }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: #fff;
+    }
+
+    .btn-whatsapp:hover { background: #1ebe57; }
+
+    .services {
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #020617;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
+
+    .card:hover { transform: translateY(-5px); }
+    .card h3 { margin-bottom: 10px; color: #38bdf8; }
+
+    .contact {
+      padding: 40px 20px;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact h2 { margin-bottom: 10px; }
+    .contact > p { color: #94a3b8; margin-bottom: 20px; }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 16px;
+      margin: 8px 0;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      background: #1e293b;
+      color: #fff;
+      font-size: 1em;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 4px rgba(56,189,248,0.15);
+    }
+
+    .mensagem-erro {
+      display: none;
+      background: #450a0a;
+      border: 1px solid #f87171;
+      color: #f87171;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 2px;
+      margin-bottom: 4px;
+      font-size: 0.9em;
+      text-align: left;
+    }
+
+    .mensagem-sucesso {
+      display: none;
+      background: #064e3b;
+      border: 1px solid #34d399;
+      color: #34d399;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-size: 1em;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #020617;
+      margin-top: 20px;
+      color: #64748b;
+    }
+  </style>
 </head>
 <body>
-  <h1>
-    Hello, World!
-  </h1>
+
+<header>
+  <h1>⚡ Jorge Tech</h1>
+
+  <div class="menu-btn" id="menuBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <nav id="menu">
+    <a href="#">Início</a>
+    <a href="#services">Serviços</a>
+    <a href="#contact">Contacto</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Soluções Profissionais em Informática</h2>
+  <p>Manutenção, instalação de sistemas e redes para sua casa ou empresa</p>
+  <a href="#contact" class="btn">Entrar em contacto</a>
+  <a href="https://wa.me/244973810960" class="btn btn-whatsapp">💬 Falar no WhatsApp</a>
+</section>
+
+<section id="services" class="services">
+  <div class="card">
+    <h3>🖥️ Manutenção de Computadores</h3>
+    <p>Limpeza, formatação e otimização de sistemas.</p>
+  </div>
+  <div class="card">
+    <h3>💿 Instalação de Sistemas</h3>
+    <p>Windows, Linux e configuração completa.</p>
+  </div>
+  <div class="card">
+    <h3>🌐 Redes</h3>
+    <p>Configuração de redes domésticas e empresariais.</p>
+  </div>
+</section>
+
+<section class="hero">
+  <h2>Por que escolher nossos serviços?</h2>
+  <p>✔ Atendimento rápido</p>
+  <p>✔ Preços acessíveis</p>
+  <p>✔ Suporte confiável</p>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contacto</h2>
+  <p>Preencha o formulário — a mensagem vai direto para o WhatsApp do Jorge! 💬</p>
+
+  <div>
+    <input type="text" id="nome" placeholder="Seu nome" />
+    <div class="mensagem-erro" id="erroNome">⚠️ Por favor, escreve o teu nome.</div>
+
+    <input type="text" id="telefone" placeholder="Seu telefone (opcional)" />
+
+    <textarea id="mensagem" placeholder="Descreva o problema" rows="4"></textarea>
+    <div class="mensagem-erro" id="erroMensagem">⚠️ Por favor, descreve o problema.</div>
+
+    <button class="btn btn-whatsapp" id="btnEnviar" onclick="enviarWhatsApp()">
+      💬 Enviar via WhatsApp
+    </button>
+
+    <div class="mensagem-sucesso" id="sucesso">
+      ✅ WhatsApp aberto! Só confirma o envio da mensagem.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Jorge Tech — Todos os direitos reservados</p>
+</footer>
+
+<script>
+
+  // =============================================
+  // ENVIO VIA WHATSAPP
+  // =============================================
+
+  function enviarWhatsApp() {
+    let nome     = document.getElementById("nome").value.trim();
+    let telefone = document.getElementById("telefone").value.trim();
+    let mensagem = document.getElementById("mensagem").value.trim();
+
+    // Esconder erros anteriores
+    document.getElementById("erroNome").style.display     = "none";
+    document.getElementById("erroMensagem").style.display = "none";
+    document.getElementById("sucesso").style.display      = "none";
+
+    let temErro = false;
+
+    if (nome === "") {
+      document.getElementById("erroNome").style.display = "block";
+      temErro = true;
+    }
+
+    if (mensagem === "") {
+      document.getElementById("erroMensagem").style.display = "block";
+      temErro = true;
+    }
+
+    if (temErro) return;
+
+    // Montar a mensagem que vai aparecer no WhatsApp
+    let texto = "Olá Jorge! 👋\n\n";
+    texto += "🧑 Nome: " + nome + "\n";
+
+    if (telefone !== "") {
+      texto += "📞 Telefone: " + telefone + "\n";
+    }
+
+    texto += "\n📝 Mensagem:\n" + mensagem;
+
+    // Codificar o texto para URL
+    let textoCodificado = encodeURIComponent(texto);
+
+    // Número do Jorge
+    let numero = "244973810960";
+
+    // Criar o link do WhatsApp
+    let linkWhatsApp = "https://wa.me/" + numero + "?text=" + textoCodificado;
+
+    // Animação do botão
+    let btn = document.getElementById("btnEnviar");
+    btn.textContent = "⏳ Abrindo WhatsApp...";
+    btn.disabled = true;
+
+    setTimeout(function() {
+      // Abrir o WhatsApp
+      window.open(linkWhatsApp, "_blank");
+
+      // Mostrar mensagem de sucesso
+      document.getElementById("sucesso").style.display = "block";
+
+      // Limpar campos
+      document.getElementById("nome").value     = "";
+      document.getElementById("telefone").value = "";
+      document.getElementById("mensagem").value = "";
+
+      // Restaurar botão
+      btn.textContent = "💬 Enviar via WhatsApp";
+      btn.disabled = false;
+
+    }, 1000);
+  }
+
+
+  // =============================================
+  // MENU HAMBÚRGUER
+  // =============================================
+
+  let menuBtn = document.getElementById("menuBtn");
+  let menu    = document.getElementById("menu");
+
+  menuBtn.addEventListener("click", function() {
+    menuBtn.classList.toggle("aberto");
+    menu.classList.toggle("aberto");
+  });
+
+  let links = menu.querySelectorAll("a");
+  links.forEach(function(link) {
+    link.addEventListener("click", function() {
+      menuBtn.classList.remove("aberto");
+      menu.classList.remove("aberto");
+    });
+  });
+
+</script>
+
 </body>
 </html>
