@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moda Huambo — Loja de Roupa</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#0a0a0a;--white:#fafafa;--accent:#c41e3a;--gray:#888;--light:#f5f5f5;--border:#e0e0e0}
+body{font-family:"Montserrat",sans-serif;background:var(--white);color:var(--black);overflow-x:hidden}
+nav{position:fixed;top:0;width:100%;z-index:100;background:var(--black);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:65px}
+.logo{font-family:"Cormorant Garamond",serif;color:var(--white);font-size:1.6rem;font-weight:700;letter-spacing:4px}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;transition:color 0.3s}
+.nav-links a:hover{color:var(--white)}
+
+.hero{height:100vh;background:var(--black);display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:65px}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:5rem;animation:slideIn 1s ease}
+@keyframes slideIn{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+.hero-tag{color:var(--accent);font-size:0.7rem;letter-spacing:5px;text-transform:uppercase;margin-bottom:1.5rem}
+.hero h1{font-family:"Cormorant Garamond",serif;font-size:clamp(3rem,5vw,5.5rem);color:var(--white);font-weight:300;line-height:1.1;margin-bottom:1.5rem}
+.hero h1 strong{font-weight:700;display:block}
+.hero h1 em{color:var(--accent);font-style:normal}
+.hero-desc{color:rgba(255,255,255,0.55);font-size:0.85rem;line-height:1.9;max-width:380px;margin-bottom:2.5rem;font-weight:300}
+.hero-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.btn-white{background:var(--white);color:var(--black);padding:14px 32px;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;font-weight:600;transition:all 0.3s;display:inline-block}
+.btn-white:hover{background:var(--accent);color:#fff}
+.btn-ghost{color:rgba(255,255,255,0.6);font-size:0.75rem;letter-spacing:2px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.3);padding-bottom:2px;text-transform:uppercase}
+.hero-right{position:relative;overflow:hidden}
+.hero-right img{width:100%;height:100%;object-fit:cover;opacity:0.75}
+.hero-label{position:absolute;bottom:2rem;right:2rem;background:var(--accent);color:#fff;padding:10px 20px;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase}
+
+.marquee{background:var(--accent);padding:12px 0;overflow:hidden;white-space:nowrap}
+.marquee-inner{display:inline-block;animation:marquee 20s linear infinite}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee span{color:#fff;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;margin:0 2rem}
+
+.collections{padding:5rem 5%}
+.col-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem}
+.col-title{font-family:"Cormorant Garamond",serif;font-size:2.5rem;font-weight:300}
+.col-title strong{display:block;font-weight:700}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem}
+.product-card{position:relative;cursor:pointer}
+.product-img{aspect-ratio:3/4;overflow:hidden;position:relative}
+.product-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+.product-card:hover .product-img img{transform:scale(1.05)}
+.product-tag{position:absolute;top:12px;left:12px;background:var(--black);color:#fff;font-size:0.65rem;padding:4px 10px;letter-spacing:2px;text-transform:uppercase;z-index:2}
+.product-tag.sale{background:var(--accent)}
+.quick-add{position:absolute;bottom:0;left:0;right:0;background:var(--black);color:#fff;text-align:center;padding:12px;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;transform:translateY(100%);transition:transform 0.3s;cursor:pointer;z-index:2}
+.product-card:hover .quick-add{transform:translateY(0)}
+.product-info{padding:1rem 0}
+.product-info h3{font-size:0.9rem;font-weight:500;margin-bottom:0.3rem}
+.category{color:var(--gray);font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem}
+.pricing{display:flex;align-items:center;gap:0.8rem}
+.current-price{font-size:1rem;font-weight:600}
+.old-price{font-size:0.85rem;color:var(--gray);text-decoration:line-through}
+.sizes{display:flex;gap:0.4rem;margin-top:0.5rem;flex-wrap:wrap}
+.size{font-size:0.65rem;padding:3px 7px;border:1px solid var(--border);color:var(--gray);cursor:pointer;transition:all 0.2s}
+.size:hover{border-color:var(--black);color:var(--black)}
+
+.banner{background:var(--black);padding:5rem;text-align:center;margin:0 5%}
+.banner-tag{color:var(--accent);font-size:0.7rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:1rem}
+.banner h2{font-family:"Cormorant Garamond",serif;font-size:3.5rem;color:#fff;font-weight:300;margin-bottom:1rem}
+.banner h2 strong{color:var(--accent)}
+.banner p{color:rgba(255,255,255,0.5);margin-bottom:2rem;font-size:0.9rem}
+.btn-accent{background:var(--accent);color:#fff;padding:14px 36px;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;font-weight:600;display:inline-block;transition:all 0.3s}
+
+.features{background:var(--black);padding:2.5rem 5%;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.feat-item{text-align:center;color:#fff}
+.feat-icon{font-size:1.8rem;margin-bottom:0.8rem}
+.feat-item h4{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.3rem}
+.feat-item p{font-size:0.75rem;color:rgba(255,255,255,0.45)}
+
+.reviews{padding:4rem 5%;background:var(--light)}
+.reviews-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+.rev-card{background:#fff;padding:2rem;border-bottom:3px solid var(--accent)}
+.rev-stars{color:var(--accent);margin-bottom:1rem}
+.rev-text{color:#555;font-size:0.85rem;line-height:1.8;font-style:italic;margin-bottom:1.2rem}
+.rev-author{font-size:0.8rem;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.rev-date{font-size:0.7rem;color:var(--gray);margin-top:0.2rem}
+
+.contact{padding:5rem 5%;background:#fff;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.contact h2{font-family:"Cormorant Garamond",serif;font-size:2.5rem;font-weight:300;margin-bottom:1.5rem}
+.contact h2 strong{font-weight:700}
+.contact-detail{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border)}
+.contact-detail:last-child{border:none}
+.det-label{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:0.2rem}
+.det-value{font-size:0.9rem;font-weight:500}
+.contact-img{border-radius:4px;overflow:hidden;height:400px}
+.contact-img img{width:100%;height:100%;object-fit:cover}
+
+footer{background:var(--black);color:rgba(255,255,255,0.4);padding:2rem 5%;text-align:center;font-size:0.85rem}
+footer span{color:var(--accent)}
+.wa-float{position:fixed;bottom:2rem;right:2rem;background:#25d366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.5);z-index:999;animation:pulse-g 2s infinite}
+@keyframes pulse-g{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.5)}50%{box-shadow:0 4px 30px rgba(37,211,102,0.8)}}
+@media(max-width:768px){.hero{grid-template-columns:1fr;height:auto}.hero-right{height:300px}.hero-left{padding:3rem 5%}.features{grid-template-columns:repeat(2,1fr)}.reviews-row,.contact{grid-template-columns:1fr}nav .nav-links{display:none}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">MODA <span>HB</span></div>
+  <ul class="nav-links">
+    <li><a href="#colecoes">Coleções</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div style="display:flex;gap:1.2rem;align-items:center">
+    <span style="color:rgba(255,255,255,0.7);cursor:pointer">🔍</span>
+    <span style="color:rgba(255,255,255,0.7);cursor:pointer">🛍️</span>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">✦ Nova Coleção 2025</div>
+    <h1>Estilo que<strong>Define</strong><em>Quem és</em></h1>
+    <p class="hero-desc">As últimas tendências da moda para homem, mulher e criança. Qualidade premium a preços acessíveis no coração do Huambo.</p>
+    <div class="hero-actions">
+      <a href="#colecoes" class="btn-white">Ver Coleção</a>
+      <a href="https://wa.me/244923000000" class="btn-ghost">Encomendar →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.pexels.com/photos/16470015/pexels-photo-16470015.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Moda Huambo"/>
+    <div class="hero-label">Nova Coleção 2025</div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-inner">
+    <span>✦ Nova Coleção 2025</span><span>✦ Entrega em Huambo</span><span>✦ Qualidade Premium</span><span>✦ Preços Acessíveis</span><span>✦ Moda para Todos</span><span>✦ WhatsApp Disponível</span>
+    <span>✦ Nova Coleção 2025</span><span>✦ Entrega em Huambo</span><span>✦ Qualidade Premium</span><span>✦ Preços Acessíveis</span><span>✦ Moda para Todos</span><span>✦ WhatsApp Disponível</span>
+  </div>
+</div>
+
+<section class="collections" id="colecoes">
+  <div class="col-header">
+    <div class="col-title">Produtos<strong>em Destaque</strong></div>
+    <a href="#" style="color:var(--gray);font-size:0.75rem;letter-spacing:2px;text-decoration:none;text-transform:uppercase">Ver Todos →</a>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img"><img src="https://images.pexels.com/photos/16470015/pexels-photo-16470015.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Casaco"/><span class="product-tag sale">-30%</span><div class="quick-add">+ Adicionar</div></div>
+      <div class="product-info"><div class="category">Masculino</div><h3>Casaco Premium</h3><div class="pricing"><span class="current-price">3.500 Kz</span><span class="old-price">5.000 Kz</span></div><div class="sizes"><span class="size">S</span><span class="size">M</span><span class="size">L</span><span class="size">XL</span></div></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img"><img src="https://images.pexels.com/photos/8531904/pexels-photo-8531904.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Camisas"/><span class="product-tag">Novo</span><div class="quick-add">+ Adicionar</div></div>
+      <div class="product-info"><div class="category">Masculino</div><h3>Camisa Social</h3><div class="pricing"><span class="current-price">2.800 Kz</span></div><div class="sizes"><span class="size">S</span><span class="size">M</span><span class="size">L</span><span class="size">XL</span></div></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img"><img src="https://images.pexels.com/photos/4313481/pexels-photo-4313481.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sapatilha"/><div class="quick-add">+ Adicionar</div></div>
+      <div class="product-info"><div class="category">Calçado</div><h3>Sapatilha Casual</h3><div class="pricing"><span class="current-price">5.500 Kz</span></div><div class="sizes"><span class="size">38</span><span class="size">39</span><span class="size">40</span><span class="size">41</span><span class="size">42</span></div></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img"><img src="https://images.pexels.com/photos/4490019/pexels-photo-4490019.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sapatilha Vermelha"/><span class="product-tag sale">-20%</span><div class="quick-add">+ Adicionar</div></div>
+      <div class="product-info"><div class="category">Calçado</div><h3>Sapatilha Sport</h3><div class="pricing"><span class="current-price">6.400 Kz</span><span class="old-price">8.000 Kz</span></div><div class="sizes"><span class="size">38</span><span class="size">39</span><span class="size">40</span><span class="size">41</span></div></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img"><img src="https://images.pexels.com/photos/34150926/pexels-photo-34150926.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Acessórios"/><span class="product-tag">Exclusivo</span><div class="quick-add">+ Adicionar</div></div>
+      <div class="product-info"><div class="category">Acessórios</div><h3>Kit Acessórios Homem</h3><div class="pricing"><span class="current-price">4.200 Kz</span></div><div class="sizes"><span class="size">Único</span></div></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img"><img src="https://images.pexels.com/photos/16470015/pexels-photo-16470015.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Casaco Feminino"/><div class="quick-add">+ Adicionar</div></div>
+      <div class="product-info"><div class="category">Feminino</div><h3>Casaco Elegante</h3><div class="pricing"><span class="current-price">4.800 Kz</span></div><div class="sizes"><span class="size">XS</span><span class="size">S</span><span class="size">M</span><span class="size">L</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div style="padding:0 5% 3rem">
+  <div class="banner">
+    <div class="banner-tag">✦ Oferta Especial</div>
+    <h2>Até <strong>40% OFF</strong><br>em toda a loja</h2>
+    <p>Aproveita os melhores preços da temporada. Oferta válida enquanto houver stock!</p>
+    <a href="https://wa.me/244923000000" class="btn-accent">💬 Encomendar Agora</a>
+  </div>
+</div>
+
+<div class="features">
+  <div class="feat-item"><div class="feat-icon">🚗</div><h4>Entrega Rápida</h4><p>Em toda a cidade do Huambo</p></div>
+  <div class="feat-item"><div class="feat-icon">↩️</div><h4>Troca Fácil</h4><p>Troca em até 7 dias</p></div>
+  <div class="feat-item"><div class="feat-icon">💎</div><h4>Qualidade Premium</h4><p>Produtos seleccionados</p></div>
+  <div class="feat-item"><div class="feat-icon">💬</div><h4>Suporte 24h</h4><p>Resposta imediata no WhatsApp</p></div>
+</div>
+
+<section class="reviews" id="reviews">
+  <div class="col-header" style="margin-bottom:0">
+    <div class="col-title">O Que Dizem<strong>as Clientes</strong></div>
+    <div style="color:var(--gray);font-size:0.8rem">⭐⭐⭐⭐⭐ 4.9</div>
+  </div>
+  <div class="reviews-row">
+    <div class="rev-card"><div class="rev-stars">⭐⭐⭐⭐⭐</div><p class="rev-text">"Comprei um casaco para o meu marido e ficou perfeito! Qualidade incrível e chegou em 2 horas."</p><div class="rev-author">Ana Beatriz</div><div class="rev-date">Março 2025</div></div>
+    <div class="rev-card"><div class="rev-stars">⭐⭐⭐⭐⭐</div><p class="rev-text">"Excelente qualidade e atendimento muito profissional. As sapatilhas são lindas!"</p><div class="rev-author">Margarida Santos</div><div class="rev-date">Abril 2025</div></div>
+    <div class="rev-card"><div class="rev-stars">⭐⭐⭐⭐⭐</div><p class="rev-text">"Melhor loja do Huambo! Preços justos, muita variedade e entrega rápida."</p><div class="rev-author">Conceição Lima</div><div class="rev-date">Maio 2025</div></div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div>
+    <h2>Fala <strong>Connosco</strong></h2>
+    <div class="contact-detail"><span style="font-size:1.2rem">💬</span><div><div class="det-label">WhatsApp</div><div class="det-value">+244 923 000 000</div></div></div>
+    <div class="contact-detail"><span style="font-size:1.2rem">📘</span><div><div class="det-label">Facebook</div><div class="det-value">Moda Huambo Oficial</div></div></div>
+    <div class="contact-detail"><span style="font-size:1.2rem">📍</span><div><div class="det-label">Loja Física</div><div class="det-value">Rua da Moda, Centro · Huambo</div></div></div>
+    <div class="contact-detail"><span style="font-size:1.2rem">🕐</span><div><div class="det-label">Horário</div><div class="det-value">Seg–Sab: 08h–19h · Dom: 09h–16h</div></div></div>
+    <a href="https://wa.me/244923000000" style="margin-top:1rem;display:inline-block;background:var(--black);color:#fff;padding:14px 32px;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;font-weight:600">💬 Falar pelo WhatsApp</a>
+  </div>
+  <div class="contact-img">
+    <img src="https://images.pexels.com/photos/8531904/pexels-photo-8531904.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Loja Moda Huambo"/>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>Moda HB</span> · Huambo, Angola</p>
+  <p style="margin-top:0.5rem;font-size:0.75rem">Site criado por <span>Jorge Tech</span> · domingosjorge909-ui.github.io/Jorge</p>
+</footer>
+<a href="https://wa.me/244923000000" class="wa-float">💬</a>
+<script>
+document.querySelectorAll("a[href^='#']").forEach(a=>{a.addEventListener("click",function(e){e.preventDefault();document.querySelector(this.getAttribute("href"))?.scrollIntoView({behavior:"smooth"})})});
+document.querySelectorAll(".quick-add").forEach(btn=>{btn.addEventListener("click",function(){this.textContent="✓ Adicionado!";this.style.background="#22c55e";setTimeout(()=>{this.textContent="+ Adicionar";this.style.background=""},2000)})});
+</script>
+</body>
+</html>
